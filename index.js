@@ -36,7 +36,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const usersCollection = client.db("Sweet-home").collection("users");
-        const categoriesCollection = client.db("Sweet-home").collection("Categories");
+        const citiesCollection = client.db("Sweet-home").collection("cities");
         const roomsCollection = client.db("Sweet-home").collection("rooms");
         const bookingsCollection = client.db("Sweet-home").collection("bookings");
         const paymentsCollection = client.db("Sweet-home").collection("payments");
@@ -140,14 +140,14 @@ async function run() {
             res.send({ isAdmin: user?.role === 'Admin' });
         })
 
-        // Get Categories 
-        app.get('/categories', async (req, res) => {
+        // Get cities 
+        app.get('/cities', async (req, res) => {
             const query = {};
-            const result = await categoriesCollection.find(query).toArray();
+            const result = await citiesCollection.find(query).toArray();
             res.send(result);
         })
-        // get room by categories 
-        app.get('/categories/:id', async (req, res) => {
+        // get room by cities 
+        app.get('/cities/:id', async (req, res) => {
             const id = req.params.id;
             const query = { category_id: id };
             const result = await roomsCollection.find(query).toArray();
@@ -187,7 +187,7 @@ async function run() {
             const result = await roomsCollection.find(query).toArray();
             res.send(result);
         })
-        // get room by categories 
+        // get room by cities 
         app.get('/rooms/:id', async (req, res) => {
             const id = req.params.id;
             const query = { category_id: id };
